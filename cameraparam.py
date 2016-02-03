@@ -2,17 +2,36 @@
 
 from tkinter import *
 from tkinter.messagebox import *
+import picamera
+from time import sleep
 
 def startPreview():
-    showinfo('Camera', 'Start Preview')
+    texte = 'Start Preview\n'
+    texte = texte + 'Sharpness : ' + valeurSharpness.get() + '\n'
+    texte = texte + 'Contrast : ' + valeurContrast.get() + '\n'
+    texte = texte + 'Brightness : ' + valeurBrightness.get() + '\n'
+    texte = texte + 'Saturation : ' + valeurSaturation.get() + '\n'
+    texte = texte + 'ISO : ' + valeurISO.get() + '\n'
+    showinfo('Camera', texte)
+    camera.start_preview(fullscreen=False, window=(35,10,1280,960))
 
 def stopPreview():
-    showinfo('Camera', 'Stop Preview')  
+    camera.stop_preview()
+
+def quitApplication():
+    camera.stop_preview()
+    fenetre.quit()
+
+def reglerSharpness(event):
+    #showinfo('Sharpness', valeurSharpness.get())
+    camera.sharpness=valeurSharpness.get()
 
 fenetre = Tk()
 fenetre.title='Test'
 
 fenetre.attributes('-fullscreen',1)
+
+camera = picamera.PiCamera()
 
 # Frame
 frameParametrage = Frame(fenetre, bg="yellow", width=640, height=1080, padx=10, pady=10)
@@ -39,19 +58,38 @@ l.pack(side=TOP, fill=BOTH)
 Button(l, text='Start preview', command=startPreview).pack(side=LEFT, padx=5, pady=5)
 Button(l, text='Stop preview',command=stopPreview).pack(side=LEFT, padx=5, pady=5)
 
+# Variables
+valeurSharpness = StringVar()
+valeurContrast = StringVar()
+valeurBrightness = StringVar()
+valeurBrightness.set(50)
+valeurSaturation = StringVar()
+valeurISO = StringVar()
+
 # Params
-lab1 = Label(frameParametrageHaut, text="Sharpness :").grid(row=0,column=0)
-ent1 = Entry(frameParametrageHaut).grid(row=0,column=1)
-lab2 = Label(frameParametrageHaut, text="Contrast :").grid(row=1,column=0)
-ent2 = Entry(frameParametrageHaut).grid(row=1,column=1)
-lab3 = Label(frameParametrageHaut, text="Brightness :").grid(row=2,column=0)
-ent3 = Entry(frameParametrageHaut).grid(row=2,column=1)
-lab4 = Label(frameParametrageHaut, text="Saturation :").grid(row=3,column=0)
-ent4 = Entry(frameParametrageHaut).grid(row=3,column=1)
-lab5 = Label(frameParametrageHaut, text="ISO :").grid(row=4,column=0)
-ent5 = Entry(frameParametrageHaut).grid(row=4,column=1)
+Label(frameParametrageHaut, text="Sharpness :").grid(row=0,column=0)
+sharpness = Scale(frameParametrageHaut, from_=-100, to=100, orient=HORIZONTAL, variable=valeurSharpness)
+sharpness.grid(row=0,column=1)
+sharpness.bind("<ButtonRelease>", reglerSharpness)
+
+Label(frameParametrageHaut, text="Contrast :").grid(row=1,column=0)
+contrast = Scale(frameParametrageHaut, from_=-100, to=100, orient=HORIZONTAL, variable=valeurContrast)
+contrast.grid(row=1,column=1)
+
+Label(frameParametrageHaut, text="Brightness :").grid(row=2,column=0)
+brightness = Scale(frameParametrageHaut, from_=0, to=100, orient=HORIZONTAL, variable=valeurBrightness)
+brightness.grid(row=2,column=1)
+
+Label(frameParametrageHaut, text="Saturation :").grid(row=3,column=0)
+saturation = Scale(frameParametrageHaut, from_=-100, to=100, orient=HORIZONTAL, variable=valeurSaturation)
+saturation.grid(row=3,column=1)
+
+Label(frameParametrageHaut, text="ISO :").grid(row=4,column=0)
+iso = Scale(frameParametrageHaut, from_=0, to=800, orient=HORIZONTAL, variable=valeurISO)
+iso.grid(row=4,column=1)
 
 # Exit
-Button(frameParametrageBas, text='Quit',command=fenetre.quit).pack(side=BOTTOM, padx=5, pady=5)
+Button(frameParametrageBas, text='Exit',command=quitApplication).pack(side=BOTTOM, padx=5, pady=5)
 
 fenetre.mainloop()
+fenetre.destroy()
