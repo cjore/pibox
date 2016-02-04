@@ -13,13 +13,16 @@ def startPreview():
     texte = texte + 'Saturation : ' + valeurSaturation.get() + '\n'
     texte = texte + 'ISO : ' + valeurISO.get() + '\n'
     showinfo('Camera', texte)
-    camera.start_preview(fullscreen=False, window=(35,10,1280,960))
+    if cameraEnable:
+        camera.start_preview(fullscreen=False, window=(35,10,1280,960))
 
 def stopPreview():
-    camera.stop_preview()
+    if cameraEnable:
+        camera.stop_preview()
 
 def quitApplication():
-    camera.stop_preview()
+    if cameraEnable:
+        camera.stop_preview()
     fenetre.quit()
 
 def reglerSharpness(event):
@@ -31,7 +34,12 @@ fenetre.title='Test'
 
 fenetre.attributes('-fullscreen',1)
 
-camera = picamera.PiCamera()
+cameraEnable=True
+
+try:
+    camera = picamera.PiCamera()
+except picamera.exc.PiCameraError:
+    cameraEnable=False
 
 # Frame
 frameParametrage = Frame(fenetre, bg="yellow", width=640, height=1080, padx=10, pady=10)
