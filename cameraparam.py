@@ -1,4 +1,5 @@
-#!/usr/bin/python
+#!/usr/bin/python3
+# -*- coding: utf-8 -*-
 
 from tkinter import *
 from tkinter.messagebox import *
@@ -43,7 +44,7 @@ class CameraParam(Tk):
         frameParametrageBas = Frame(frameParametrage, width=640, height=540)
         frameParametrageBas.pack(side=BOTTOM,fill=Y)
     
-        frameVisualisation = Frame(self, bg="blue",   width=1280, height=960)
+        frameVisualisation = Frame(self, bg="blue",   width=1280, height=800)
         frameVisualisation.pack(side=TOP, fill=X)
     
         framePilotage = Frame(self, bg="red", width=1280, height=120, padx=10, pady=10)
@@ -66,7 +67,9 @@ class CameraParam(Tk):
         self.valeurBrightness.set(50)
         self.valeurSaturation = StringVar()
         self.valeurISO = StringVar()
-        self.valeurStabilisation = IntVar()
+        self.valeurStabilisation = BooleanVar()
+        self.valeurExCompensation = IntVar()
+
 
         # Params
         Label(frameParametrageHaut, text="Sharpness :").grid(row=0,column=0)
@@ -94,9 +97,18 @@ class CameraParam(Tk):
         iso.grid(row=4,column=1)
         iso.bind("<B1-Motion>", self.reglerIso)
 
-        stabilisationLF = LabelFrame(frameParametrageHaut, text="Stabilisation")
-        Radiobutton(stabilisationLF, text="Oui", variable=valeurStabilisation, value=True)
-        Radiobutton(stabilisationLF, text="Non", variable=valeurStabilisation, value=False)
+        stabilisationLF = LabelFrame(frameParametrageHaut, text="Stabilisation :")
+        stabilisationLF.grid(columnspan=2, sticky=W)
+        Radiobutton(stabilisationLF, text="Oui", variable=self.valeurStabilisation, value=True, command=self.choisirStabilisation).grid(row=0,column=0)
+        Radiobutton(stabilisationLF, text="Non", variable=self.valeurStabilisation, value=False, command=self.choisirStabilisation).grid(row=0,column=1)
+
+        Label(frameParametrageHaut, text="Exposure compensation :").grid(row=6,column=0)
+        saturation = Scale(frameParametrageHaut, from_=-25, to=25, orient=HORIZONTAL, variable=self.valeurExCompensation)
+        saturation.grid(row=6,column=1)
+        saturation.bind("<B1-Motion>", self.reglerExCompensation)
+
+        Label(frameParametrageHaut, text="Exposure mode :").grid(row=7,column=0)
+        
 
         # Bouton Exit
         Button(frameParametrageBas, text='Exit',command=self.quitApplication).pack(side=BOTTOM, padx=5, pady=5)
@@ -143,7 +155,16 @@ class CameraParam(Tk):
 
     def reglerIso(self,event):
         if self.cameraEnable:
-            self.camera.ISO=int(self.valeurISO.get())        
+            self.camera.ISO=int(self.valeurISO.get())
+
+    def choisirStabilisation(self):
+        showinfo('Stabilisation', self.valeurStabilisation.get())
+        if self.cameraEnable:
+            self.camera.video_stabilization = self.valeurStabilisation.get()
+
+    def reglerExCompensation(self,event):
+        if self.cameraEnable:
+            self.camera.exposure_compensation=int(self.valeurExCompensation.get())
         
 
 if __name__ == "__main__":
