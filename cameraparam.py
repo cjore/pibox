@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from tkinter import *
+from tkinter import ttk
 from tkinter.messagebox import *
 import picamera
 from time import sleep
@@ -69,30 +70,34 @@ class CameraParam(Tk):
         self.valeurISO = StringVar()
         self.valeurStabilisation = BooleanVar()
         self.valeurExCompensation = IntVar()
-
+        self.valeurExMode = StringVar()
+        self.valeurExMode.set('auto')
+        self.valeurFlashMode = StringVar()
+        self.valeurFlashMode.set('off')
+        self.valeurHFlip = BooleanVar()
 
         # Params
-        Label(frameParametrageHaut, text="Sharpness :").grid(row=0,column=0)
+        Label(frameParametrageHaut, text="Sharpness :").grid(row=0,column=0,sticky=W)
         sharpness = Scale(frameParametrageHaut, from_=-100, to=100, orient=HORIZONTAL, variable=self.valeurSharpness)
         sharpness.grid(row=0,column=1)
         sharpness.bind("<B1-Motion>", self.reglerSharpness)
 
-        Label(frameParametrageHaut, text="Contrast :").grid(row=1,column=0)
+        Label(frameParametrageHaut, text="Contrast :").grid(row=1,column=0,sticky=W)
         contrast = Scale(frameParametrageHaut, from_=-100, to=100, orient=HORIZONTAL, variable=self.valeurContrast)
         contrast.grid(row=1,column=1)
         contrast.bind("<B1-Motion>", self.reglerContrast)
 
-        Label(frameParametrageHaut, text="Brightness :").grid(row=2,column=0)
+        Label(frameParametrageHaut, text="Brightness :").grid(row=2,column=0,sticky=W)
         brightness = Scale(frameParametrageHaut, from_=0, to=100, orient=HORIZONTAL, variable=self.valeurBrightness)
         brightness.grid(row=2,column=1)
         brightness.bind("<B1-Motion>", self.reglerBrightness)
 
-        Label(frameParametrageHaut, text="Saturation :").grid(row=3,column=0)
+        Label(frameParametrageHaut, text="Saturation :").grid(row=3,column=0,sticky=W)
         saturation = Scale(frameParametrageHaut, from_=-100, to=100, orient=HORIZONTAL, variable=self.valeurSaturation)
         saturation.grid(row=3,column=1)
         saturation.bind("<B1-Motion>", self.reglerSaturation)
 
-        Label(frameParametrageHaut, text="ISO :").grid(row=4,column=0)
+        Label(frameParametrageHaut, text="ISO :").grid(row=4,column=0,sticky=W)
         iso = Scale(frameParametrageHaut, from_=0, to=800, orient=HORIZONTAL, variable=self.valeurISO)
         iso.grid(row=4,column=1)
         iso.bind("<B1-Motion>", self.reglerIso)
@@ -102,13 +107,27 @@ class CameraParam(Tk):
         Radiobutton(stabilisationLF, text="Oui", variable=self.valeurStabilisation, value=True, command=self.choisirStabilisation).grid(row=0,column=0)
         Radiobutton(stabilisationLF, text="Non", variable=self.valeurStabilisation, value=False, command=self.choisirStabilisation).grid(row=0,column=1)
 
-        Label(frameParametrageHaut, text="Exposure compensation :").grid(row=6,column=0)
-        saturation = Scale(frameParametrageHaut, from_=-25, to=25, orient=HORIZONTAL, variable=self.valeurExCompensation)
-        saturation.grid(row=6,column=1)
-        saturation.bind("<B1-Motion>", self.reglerExCompensation)
+        Label(frameParametrageHaut, text="Exposure compensation :").grid(row=6,column=0,sticky=W)
+        exCompensation = Scale(frameParametrageHaut, from_=-25, to=25, orient=HORIZONTAL, variable=self.valeurExCompensation)
+        exCompensation.grid(row=6,column=1)
+        exCompensation.bind("<B1-Motion>", self.reglerExCompensation)
 
-        Label(frameParametrageHaut, text="Exposure mode :").grid(row=7,column=0)
-        
+        Label(frameParametrageHaut, text="Exposure mode :").grid(row=7,column=0,sticky=W)
+        exMode = ttk.Combobox(frameParametrageHaut, textvariable=self.valeurExMode)
+        exMode.grid(row=7,column=1)
+        exMode['values'] = ['auto','off','night','nightpreview','backlight','sports','snom','beach','verylong','fixedfps','antishake','fireworks']
+        exMode.bind("<<ComboboxSelected>>", self.reglerExMode) 
+
+        Label(frameParametrageHaut, text="Flash mode :").grid(row=8,column=0,sticky=W)
+        exMode = ttk.Combobox(frameParametrageHaut, textvariable=self.valeurFlashMode)
+        exMode.grid(row=8,column=1)
+        exMode['values'] = ['off','auto','on','redeye','fillin','torch']
+        exMode.bind("<<ComboboxSelected>>", self.reglerFlashMode)
+
+        stabilisationLF = LabelFrame(frameParametrageHaut, text="HFlip :")
+        stabilisationLF.grid(columnspan=2, sticky=W)
+        Radiobutton(stabilisationLF, text="Oui", variable=self.valeurHFlip, value=True, command=self.choisirHFlip).grid(row=0,column=0)
+        Radiobutton(stabilisationLF, text="Non", variable=self.valeurHFlip, value=False, command=self.choisirHFlip).grid(row=0,column=1)
 
         # Bouton Exit
         Button(frameParametrageBas, text='Exit',command=self.quitApplication).pack(side=BOTTOM, padx=5, pady=5)
@@ -165,7 +184,18 @@ class CameraParam(Tk):
     def reglerExCompensation(self,event):
         if self.cameraEnable:
             self.camera.exposure_compensation=int(self.valeurExCompensation.get())
-        
+
+    def reglerExMode(self,event):
+        if self.cameraEnable:
+            self.camera.exposure_mode=self.valeurExMode.get()        
+
+    def reglerFlashMode(self,event):
+        if self.cameraEnable:
+            self.camera.flash_mode=self.valeurFlashMode.get()
+
+    def choisirHFlip(self):
+        if self.cameraEnable:
+            self.camera.hflip = self.valeurHFlip.get()
 
 if __name__ == "__main__":
     app = CameraParam(None)
