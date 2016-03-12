@@ -36,13 +36,13 @@ class CameraParam(Tk):
         self.attributes('-fullscreen',1)
 
         # Frame
-        frameParametrage = Frame(self, bg="yellow", width=640, height=1080, padx=10, pady=10)
+        frameParametrage = Frame(self, bg="yellow", width=640, height=800, padx=10, pady=10)
         frameParametrage.pack(side=RIGHT,fill=Y)
 
-        frameParametrageHaut = Frame(frameParametrage, width=640, height=540)
+        frameParametrageHaut = Frame(frameParametrage, width=640, height=400)
         frameParametrageHaut.pack(side=TOP,fill=Y)
 
-        frameParametrageBas = Frame(frameParametrage, width=640, height=540)
+        frameParametrageBas = Frame(frameParametrage, width=640, height=400)
         frameParametrageBas.pack(side=BOTTOM,fill=Y)
     
         frameVisualisation = Frame(self, bg="blue",   width=1280, height=800)
@@ -52,7 +52,7 @@ class CameraParam(Tk):
         framePilotage.pack(side=BOTTOM, fill=X, expand=1)
 
         # Composant
-        Canvas(frameVisualisation, width=1280, height=960, bg='ivory').pack(side=LEFT, padx=10, pady=10)
+        Canvas(frameVisualisation, width=1280, height=800, bg='ivory').pack(side=LEFT, padx=10, pady=10)
 
         l = LabelFrame(framePilotage, text="Pilotage")
         l.pack(side=TOP, fill=BOTH)
@@ -75,6 +75,9 @@ class CameraParam(Tk):
         self.valeurFlashMode = StringVar()
         self.valeurFlashMode.set('off')
         self.valeurHFlip = BooleanVar()
+        self.valeurVFlip = BooleanVar()
+        self.valeurImageEffect = StringVar()
+        self.valeurImageEffect.set('none')
 
         # Params
         Label(frameParametrageHaut, text="Sharpness :").grid(row=0,column=0,sticky=W)
@@ -124,10 +127,21 @@ class CameraParam(Tk):
         exMode['values'] = ['off','auto','on','redeye','fillin','torch']
         exMode.bind("<<ComboboxSelected>>", self.reglerFlashMode)
 
-        stabilisationLF = LabelFrame(frameParametrageHaut, text="HFlip :")
-        stabilisationLF.grid(columnspan=2, sticky=W)
-        Radiobutton(stabilisationLF, text="Oui", variable=self.valeurHFlip, value=True, command=self.choisirHFlip).grid(row=0,column=0)
-        Radiobutton(stabilisationLF, text="Non", variable=self.valeurHFlip, value=False, command=self.choisirHFlip).grid(row=0,column=1)
+        hflipLF = LabelFrame(frameParametrageHaut, text="HFlip :")
+        hflipLF.grid(columnspan=2, sticky=W)
+        Radiobutton(hflipLF, text="Oui", variable=self.valeurHFlip, value=True, command=self.choisirHFlip).grid(row=0,column=0)
+        Radiobutton(hflipLF, text="Non", variable=self.valeurHFlip, value=False, command=self.choisirHFlip).grid(row=0,column=1)
+
+        vflipLF = LabelFrame(frameParametrageHaut, text="VFlip :")
+        vflipLF.grid(columnspan=2, sticky=W)
+        Radiobutton(vflipLF, text="Oui", variable=self.valeurVFlip, value=True, command=self.choisirVFlip).grid(row=0,column=0)
+        Radiobutton(vflipLF, text="Non", variable=self.valeurVFlip, value=False, command=self.choisirVFlip).grid(row=0,column=1)
+
+        Label(frameParametrageHaut, text="Image effect :").grid(row=11,column=0,sticky=W)
+        exMode = ttk.Combobox(frameParametrageHaut, textvariable=self.valeurImageEffect)
+        exMode.grid(row=11,column=1)
+        exMode['values'] = ['none','negative','solarize','sketch','denoise','emboss','oilpaint','hatch','gpen','pastel','watercolor','film','blur','saturation','colorswap','washedout','posterise','colorpoint','colorbalance','cartoon','deinterlace1','deinterlace2']
+        exMode.bind("<<ComboboxSelected>>", self.reglerImageEffect)
 
         # Bouton Exit
         Button(frameParametrageBas, text='Exit',command=self.quitApplication).pack(side=BOTTOM, padx=5, pady=5)
@@ -142,7 +156,7 @@ class CameraParam(Tk):
         texte = texte + 'ISO : ' + self.valeurISO.get() + '\n'
         #showinfo('Camera', texte)
         if self.cameraEnable:
-            self.camera.start_preview(fullscreen=False, window=(35,10,1280,960))
+            self.camera.start_preview(fullscreen=False, window=(83,10,1280,960))
 
     # Arrêt du preview
     def stopPreview(self):
@@ -196,6 +210,14 @@ class CameraParam(Tk):
     def choisirHFlip(self):
         if self.cameraEnable:
             self.camera.hflip = self.valeurHFlip.get()
+
+    def choisirVFlip(self):
+        if self.cameraEnable:
+            self.camera.vflip = self.valeurVFlip.get()
+
+    def reglerImageEffect(self, event):
+        if self.cameraEnable:
+            self.camera.image_effcet=self.valeurImageEffect.get()
 
 if __name__ == "__main__":
     app = CameraParam(None)
