@@ -78,6 +78,8 @@ class CameraParam(Tk):
         self.valeurVFlip = BooleanVar()
         self.valeurImageEffect = StringVar()
         self.valeurImageEffect.set('none')
+        self.valeurZoom = DoubleVar()
+        self.valeurZoom.set(1.0)
 
         # Params
         Label(frameParametrageHaut, text="Sharpness :").grid(row=0,column=0,sticky=W)
@@ -143,6 +145,11 @@ class CameraParam(Tk):
         exMode['values'] = ['none','negative','solarize','sketch','denoise','emboss','oilpaint','hatch','gpen','pastel','watercolor','film','blur','saturation','colorswap','washedout','posterise','colorpoint','colorbalance','cartoon','deinterlace1','deinterlace2']
         exMode.bind("<<ComboboxSelected>>", self.reglerImageEffect)
 
+        Label(frameParametrageHaut, text="Zoom :").grid(row=12,column=0,sticky=W)
+        exCompensation = Scale(frameParametrageHaut, from_=1.0, to=0.1, resolution=0.1, orient=HORIZONTAL, variable=self.valeurZoom)
+        exCompensation.grid(row=12,column=1)
+        exCompensation.bind("<B1-Motion>", self.reglerZoom)
+
         # Bouton Exit
         Button(frameParametrageBas, text='Exit',command=self.quitApplication).pack(side=BOTTOM, padx=5, pady=5)
 
@@ -156,6 +163,7 @@ class CameraParam(Tk):
         texte = texte + 'ISO : ' + self.valeurISO.get() + '\n'
         #showinfo('Camera', texte)
         if self.cameraEnable:
+            self.camera.video_stabilization = True;
             self.camera.start_preview(fullscreen=False, window=(83,10,1280,960))
 
     # Arrêt du preview
@@ -217,7 +225,11 @@ class CameraParam(Tk):
 
     def reglerImageEffect(self, event):
         if self.cameraEnable:
-            self.camera.image_effcet=self.valeurImageEffect.get()
+            self.camera.image_effect=self.valeurImageEffect.get()
+
+    def reglerZoom(self,event):
+        if self.cameraEnable:
+            self.camera.zoom = (0.0,0.0,self.valeurZoom.get(),self.valeurZoom.get())        
 
 if __name__ == "__main__":
     app = CameraParam(None)
