@@ -1,9 +1,13 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
+import picamera
+from PiCamCameraModel import PiCamCameraModel
+
 class PiCamCameraController():
 
     def __init__(self):
+        self.cameraModel = PiCamCameraModel()
         try:
             self.camera = picamera.PiCamera()
         except picamera.exc.PiCameraError:

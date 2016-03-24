@@ -1,8 +1,16 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
+from PiCamParamView import PiCamParamView
+
 # Vue du module de d'enregistrement
-class PiCamParamController():
+class PiCamParamController:
+
+    # Constructeur
+    def __init__(self, parent):
+        self.parent = parent
+        #self.paramModel = PiCamParamModel(parent)
+        self.paramView = PiCamParamView(parent)
 
     # Fermeture de l'application
     def quitApplication(self):

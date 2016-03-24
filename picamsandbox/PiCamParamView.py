@@ -4,6 +4,7 @@
 from tkinter import *
 from tkinter import ttk
 from tkinter.messagebox import *
+from PiCamParamModel import PiCamParamModel
 
 # Vue du module de paramétrage
 class PiCamParamView(Tk):
@@ -12,6 +13,7 @@ class PiCamParamView(Tk):
     def __init__(self, parent):
         Tk.__init__(self,parent)
         self.parent = parent
+        self.paramModel = PiCamParamModel(self)
         self.construireIHM()
 
          # Définission de l'IHM

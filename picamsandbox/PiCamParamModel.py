@@ -1,10 +1,12 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
+from tkinter import *
+
 # Model du module de paramétrage
 class PiCamParamModel():
 
-    def __init__(self):
+    def __init__(self, parent):
         # Variables
         self.valeurSharpness = StringVar()
         self.valeurContrast = StringVar()
