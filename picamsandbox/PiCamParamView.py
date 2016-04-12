@@ -29,7 +29,7 @@ class PiCamParamView():
         self.parent.attributes('-fullscreen',1)
 
         # Frame
-        frameParametrage = Frame(self.parent, bg="yellow", width=640, height=800, padx=10, pady=10)
+        frameParametrage = Frame(self.parent, width=640, height=800, padx=10, pady=10)
         frameParametrage.pack(side=RIGHT,fill=Y)
 
         frameParametrageHaut = Frame(frameParametrage, width=640, height=400)
@@ -38,15 +38,13 @@ class PiCamParamView():
         frameParametrageBas = Frame(frameParametrage, width=640, height=400)
         frameParametrageBas.pack(side=BOTTOM,fill=Y)
     
-        frameVisualisation = Frame(self.parent, bg="blue",   width=1280, height=800)
+        frameVisualisation = Frame(self.parent, width=1280, height=800)
         frameVisualisation.pack(side=TOP, fill=X)
     
-        framePilotage = Frame(self.parent, bg="red", width=1280, height=120, padx=10, pady=10)
+        framePilotage = Frame(self.parent, width=1280, height=120, padx=10, pady=10)
         framePilotage.pack(side=BOTTOM, fill=X, expand=1)
 
         # Composant
-        Canvas(frameVisualisation, width=1280, height=800, bg='ivory').pack(side=LEFT, padx=10, pady=10)
-
         l = LabelFrame(framePilotage, text="Pilotage")
         l.pack(side=TOP, fill=BOTH)
 
