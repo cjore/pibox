@@ -1,13 +1,23 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
-# Import the necessary packages
+from __future__ import print_function
+from imutils.video.pivideostream import PiVideoStream
+from imutils.video import FPS
+#from picamera.array import PiRGBArray
+#from picamera import PiCamera
 import argparse
 import datetime
 import imutils
-from imutils.video import FPS
 import time
 import cv2
+
+# initialize the camera and stream
+#camera = PiCamera()
+#camera.resolution = (320, 240)
+#camera.framerate = 32
+#rawCapture = PiRGBArray(camera, size=(320, 240))
+#stream = camera.capture_continuous(rawCapture, format="bgr", use_video_port=True)
 
 # Construct the argument parser and parse the arguments
 ap = argparse.ArgumentParser()
@@ -15,30 +25,21 @@ ap.add_argument("-v", "--video", help="path to the video file")
 ap.add_argument("-a", "--min-area", type=int, default=500, help="minimum area size")
 args = vars(ap.parse_args())
 
-# If the video argument is None, then we are reading from webcam
-if args.get("video", None) is None:
-	camera = cv2.VideoCapture(0)
-	time.sleep(0.25)
-			
-# Otherwise, we are reading from a video file
-else:
-	camera = cv2.VideoCapture(args["video"])
-	
+# created a "threaded" video stream, allow the camera sensor to warmup, and start the FPS counter
+print("[INFO] sampling THREAD frames from picamera module");
+vs = PiVideoStream().start()
+time.sleep(2.0)
+fps = FPS().start()
+
 # Initialize the first fram in the video stream
 firstFrame = None
-
-fps=FPS().start()
 
 # Loop over the frames of the video
 while True :
 	# grab the current frame ans initialize the occupied/unoccupied test
-	(grabbed, frame) = camera.read()
+	frame = vs.read()
 	text = "Unocoppied"
 	
-	# if the frame could not be grabbed, then we have reached the end of the video
-	if not grabbed:
-		break
-		
 	# resize the frame, convert it to greyscale, and blur it
 	frame = imutils.resize(frame, width=500)
 	gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
@@ -72,13 +73,13 @@ while True :
 	cv2.putText(frame, "Room Status: {}".format(text), (10, 20), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
 	cv2.putText(frame, datetime.datetime.now().strftime("%A %d %B %Y %I:%M:%S%p"), (10, frame.shape[0] - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.35, (0, 0, 255), 1)
 	
-	fps.update()
-	
 	# show the frameand record if the user presses a key
 	cv2.imshow("Security Feed", frame)
 	cv2.imshow("Thresh", thresh)
 	cv2.imshow("Frame Delta", frameDelta)
 	key = cv2.waitKey(1) & 0xFF
+	
+	fps.update()
 		
 	# if the 'q' key is pressed, break from the loop
 	if key == ord("q"):
@@ -86,9 +87,7 @@ while True :
 
 fps.stop()
 print("[INFO] approx. FPS: {:.2f}".format(fps.fps()))
-		
-# Cleanuo the camera and close any open windows
-camera.release()
-cv2.destroyAllWindows()		
-		
 
+# do a bit of cleanup
+cv2.destroyAllWindows()
+vs.stop()
