@@ -27,7 +27,7 @@ current_page=3
 FILE_NAME_0=177;Python;0;EUTF-8;1;1;0;%2Fhome%2Fpi%2Fpibox%2Fpiopencvsandbox%2Fmotion_detector.py;0;4
 FILE_NAME_1=284;Python;0;EUTF-8;1;1;0;%2Fhome%2Fpi%2Fpibox%2Fpiopencvsandbox%2FPiVideoStream.py;0;4
 FILE_NAME_2=1379;Python;0;EUTF-8;1;1;0;%2Fhome%2Fpi%2Fpibox%2Fpiopencvsandbox%2Fmotion_detector_thread.py;0;4
-FILE_NAME_3=44;Python;0;EUTF-8;1;1;0;%2Fhome%2Fpi%2Fpibox%2Fpiopencvsandbox%2Freticule.py;0;4
+FILE_NAME_3=350;Python;0;EUTF-8;1;1;0;%2Fhome%2Fpi%2Fpibox%2Fpiopencvsandbox%2Freticule.py;0;4
 
 [VTE]
 last_dir=/home/pi/pibox/piopencvsandbox
