@@ -31,7 +31,7 @@ vs = PiVideoStream().start()
 time.sleep(2.0)
 fps = FPS().start()
 
-# Initialize the first fram in the video stream
+# Initialize the first frame in the video stream
 firstFrame = None
 
 # Loop over the frames of the video
