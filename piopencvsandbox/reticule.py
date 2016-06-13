@@ -9,40 +9,40 @@ import imutils
 
 mx = 50
 my = 50
-mxcourant = mx
-mycourant = my
+resolutionx = 480
+resolutiony = 360
+widthTarget = 75
+halfWidthTarget = int(widthTarget/2)
 
 # mouse callback function
 def moveTarget(event,x,y,flags,param):
 	if event == cv2.EVENT_MOUSEMOVE :
 		global mx
 		global my
-		#mx = int(x/10)
-		#my = int(y/10)
 		
-		if (x - 50 < 0):
+		if (x - halfWidthTarget < 0):
 			mx = 0 
-		elif (x + 100 > 1280):
-			mx = 1280 -100
+		elif (x + widthTarget > resolutionx):
+			mx = resolutionx -widthTarget
 		else:
-			mx = x - 50
+			mx = x - halfWidthTarget
 	
 		
-		if (y - 50 < 0): 
+		if (y - halfWidthTarget < 0): 
 			my = 0
-		elif (y + 100 > 720):	
-			my = 720 - 100
+		elif (y + widthTarget > resolutiony):	
+			my = resolutiony - widthTarget
 		else:
-			my = y - 50	
-		print('x : ' + str(x) + " - " + " y : " + str(y))
+			my = y - halfWidthTarget	
+		#print('x : ' + str(x) + " - " + " y : " + str(y))
 		
 # created a "threaded" video stream, allow the camera sensor to warmup
-vs = PiVideoStream((1280, 720)).start()
+vs = PiVideoStream((resolutionx, resolutiony)).start()
 time.sleep(1.0)
 
 # Lecture de l'image
 reticule = cv2.imread("target-red.png")
-reticule = imutils.resize(reticule, width=100)
+reticule = imutils.resize(reticule, width=widthTarget)
 rows, cols, channels = reticule.shape
 
 
@@ -51,6 +51,9 @@ grayreticule = cv2.cvtColor(reticule, cv2.COLOR_BGR2GRAY)
 ret, mask = cv2.threshold(grayreticule, 127, 255, cv2.THRESH_BINARY)
 mask_inv = cv2.bitwise_not(mask)
 
+# Initialisation window
+cv2.namedWindow('Target', cv2.WINDOW_AUTOSIZE)
+cv2.setMouseCallback("Target", moveTarget)
 
 # Loop over the frames of the video
 while True :
@@ -58,12 +61,12 @@ while True :
 	# grab the current frame
 	frame = vs.read()
 	
-	frame2 = imutils.resize(frame, width=1280)
+	frame2 = imutils.resize(frame, width=resolutionx)
 
 	# ROI definition
 	roi = frame2[my:rows+my, mx:cols+mx]
 	
-	print('mx : ' + str(mx) + " - my : " + str(my) + " - rows : " +  str(rows+mx) + " - cols : " + str(cols+my))
+	#print('mx : ' + str(mx) + " - my : " + str(my) + " - rows : " +  str(rows+mx) + " - cols : " + str(cols+my))
 	
 	# black-out the area of reticule in ROI
 	frame_bg = cv2.bitwise_and(roi, roi, mask = mask)
@@ -79,10 +82,7 @@ while True :
 		
 	# show the frame 
 	cv2.imshow("Target", frame2)
-	
-	
-	cv2.setMouseCallback("Target", moveTarget)
-		
+			
 	# wait user action
 	key = cv2.waitKey(1) & 0xFF
 		
