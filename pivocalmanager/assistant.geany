@@ -13,17 +13,15 @@ detect_indent_width=false
 indent_mode=2
 
 [project]
-name=piespeak
-base_path=/home/pi/pibox/pittssandbox
-description=
+name=assistant
+base_path=/home/pi/pibox/pivocalmanager/assistant/
 
 [long line marker]
 long_line_behaviour=1
 long_line_column=72
 
 [files]
-current_page=0
-FILE_NAME_0=223;Python;0;EUTF-8;1;1;0;%2Fhome%2Fpi%2Fpibox%2Fpittssandbox%2Fpiespeak.py;0;4
+current_page=-1
 
 [VTE]
-last_dir=/home/pi/pibox
+last_dir=/home/pi/pibox/piopencvsandbox
