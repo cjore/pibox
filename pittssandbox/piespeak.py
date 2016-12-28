@@ -9,7 +9,7 @@ text = '"Safe mode!"'
 subprocess.call('espeak -v fr+m6 '+text, shell=True)
 subprocess.call('espeak '+text, shell=True)
 
-espeak.list_voices()
+#espeak.list_voices()
 espeak.set_voice('fr')
 espeak.synth("Hello Instructables!")
 

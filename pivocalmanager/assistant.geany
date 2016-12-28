@@ -21,7 +21,8 @@ long_line_behaviour=1
 long_line_column=72
 
 [files]
-current_page=-1
+current_page=0
+FILE_NAME_0=337;Python;0;EUTF-8;1;1;0;%2Fhome%2Fpi%2Fpibox%2Fpivocalmanager%2Fassistant%2Fjarvis.py;0;4
 
 [VTE]
-last_dir=/home/pi/pibox/piopencvsandbox
+last_dir=/home/pi/pibox/pivocalmanager/assistant

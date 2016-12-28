@@ -3,6 +3,27 @@
 
 import speech_recognition
 from datetime import datetime
+import pyttsx
+
+speech_engine = pyttsx.init('espeak')
+speech_engine.setProperty('voice',b'french')
+speech_engine.setProperty('rate',150)
+
+def speak(text):
+	before = datetime.now()
+	print("Before speak : {0}".format(before))
+	
+	#voices = speech_engine.getProperty('voices')
+	#for voice in voices:
+	#	print(voice.id)
+	#	speech_engine.setProperty('voice',voice.id)
+	#	speech_engine.say(text)
+	
+	speech_engine.say(text)
+	speech_engine.runAndWait() 
+
+	after = datetime.now()
+	print("After speak : {0}".format(after))
 
 recognizer = speech_recognition.Recognizer()
 
@@ -21,7 +42,7 @@ def listen():
 		print("After recognizer : {0}".format(after)) 
 		
 		duree = after - before
-		print("Duree du traitement : {0}".format(duree))
+		print("Duree du recognizer : {0}".format(duree))
 		
 		return stt
 		
@@ -31,6 +52,15 @@ def listen():
 		print("Recog Error; {0}".format(e))
 		
 	return ""			
-	
-print(listen())	
+
+def do(text):
+	if (text=="bonjour"):
+		return "Bonjour"
+	else:
+		return "Veuillez reformulez!"	
+
+commande = listen()
+print(commande)	
+reponse = do(commande)
+speak(reponse)
 	
