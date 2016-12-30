@@ -10,9 +10,7 @@ speech_engine.setProperty('voice',b'french')
 speech_engine.setProperty('rate',150)
 
 def speak(text):
-	before = datetime.now()
-	print("Before speak : {0}".format(before))
-	
+		
 	#voices = speech_engine.getProperty('voices')
 	#for voice in voices:
 	#	print(voice.id)
@@ -22,8 +20,6 @@ def speak(text):
 	speech_engine.say(text)
 	speech_engine.runAndWait() 
 
-	after = datetime.now()
-	print("After speak : {0}".format(after))
 
 recognizer = speech_recognition.Recognizer()
 
@@ -35,7 +31,10 @@ def listen():
 	try:
 		before = datetime.now()
 		print("Before recognizer : {0}".format(before))
+		
+		speak("Commande en cours de traitement")
 				
+		#stt = recognizer.recognize_sphinx(audio, "fr-FR", [('bonjour',1)], False)
 		stt = recognizer.recognize_sphinx(audio, "fr-FR")
 		
 		after = datetime.now()
