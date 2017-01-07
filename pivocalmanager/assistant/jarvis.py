@@ -24,35 +24,69 @@ def speak(text):
 recognizer = speech_recognition.Recognizer()
 
 def listen():
-	with speech_recognition.Microphone(device_index = 2, sample_rate = 44100, chunk_size = 512) as source:
+	with speech_recognition.Microphone(device_index = 2, sample_rate = 48000, chunk_size = 1024) as source:
 		recognizer.adjust_for_ambient_noise(source)
 		audio = recognizer.listen(source)
 		
+		
+	before = datetime.now()
+	print("Commande en cours de traitement : {0}".format(before))
+		
+	speak("Commande en cours de traitement")
+	stt=""	
+	
 	try:
+			
+		#Shpinx avec keyword entrie
 		before = datetime.now()
-		print("Before recognizer : {0}".format(before))
-		
-		speak("Commande en cours de traitement")
-				
-		#stt = recognizer.recognize_sphinx(audio, "fr-FR", [('bonjour',1)], False)
-		stt = recognizer.recognize_sphinx(audio, "fr-FR")
-		
+		stt = recognizer.recognize_sphinx(audio, "fr-FR", [('bonjour',1)], False)
 		after = datetime.now()
-		print("After recognizer : {0}".format(after)) 
 		
 		duree = after - before
-		print("Duree du recognizer : {0}".format(duree))
-		
-		return stt
-		
-	except 	speech_recognition.UnknownValueError:
+		print("Duree du recognizer sphinx avec keyword : {0}".format(duree))
+		print(stt)
+			
+	except speech_recognition.UnknownValueError:
 		print("Could not understand audio")
-	except 	speech_recognition.RequestError as e:
+	except speech_recognition.RequestError as e:
 		print("Recog Error; {0}".format(e))
 		
-	return ""			
+	
+	try:
+		#Sphinx
+		before = datetime.now()
+		stt = recognizer.recognize_sphinx(audio, "fr-FR")
+		after = datetime.now()
+		
+		duree = after - before
+		print("Duree du recognizer sphinx : {0}".format(duree))
+		print(stt)
+		
+	except speech_recognition.UnknownValueError:
+		print("Could not understand audio")
+	except speech_recognition.RequestError as e:
+		print("Recog Error; {0}".format(e))	
+		
+	try:	
+		#Google
+		before = datetime.now()
+		stt = recognizer.recognize_google(audio, None, "fr-FR")
+		after = datetime.now()
+		
+		duree = after - before
+		print("Duree du recognizer google : {0}".format(duree))
+		print(stt)
+		
+	except speech_recognition.UnknownValueError:
+		print("Could not understand audio")
+	except speech_recognition.RequestError as e:
+		print("Recog Error; {0}".format(e))
+		
+	return stt
+		
 
 def do(text):
+	
 	if (text=="bonjour"):
 		return "Bonjour"
 	else:
@@ -62,4 +96,3 @@ commande = listen()
 print(commande)	
 reponse = do(commande)
 speak(reponse)
-	

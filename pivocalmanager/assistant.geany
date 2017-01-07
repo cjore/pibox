@@ -16,6 +16,7 @@ indent_mode=2
 name=assistant
 base_path=/home/pi/pibox/pivocalmanager/assistant/
 description=
+file_patterns=
 
 [long line marker]
 long_line_behaviour=1
@@ -23,7 +24,12 @@ long_line_column=72
 
 [files]
 current_page=0
-FILE_NAME_0=477;Python;0;EUTF-8;1;1;0;%2Fhome%2Fpi%2Fpibox%2Fpivocalmanager%2Fassistant%2Fjarvis.py;0;4
+FILE_NAME_0=1438;Python;0;EUTF-8;1;1;0;%2Fhome%2Fpi%2Fpibox%2Fpivocalmanager%2Fassistant%2Fjarvis.py;0;4
 
 [VTE]
 last_dir=/home/pi/pibox/pivocalmanager/assistant
+
+[build-menu]
+EX_00_LB=_Exécuter
+EX_00_CM=python3 "%f"
+EX_00_WD=
