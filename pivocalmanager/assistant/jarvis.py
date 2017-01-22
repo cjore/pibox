@@ -39,7 +39,7 @@ def listen():
 			
 		#Shpinx avec keyword entrie
 		before = datetime.now()
-		stt = recognizer.recognize_sphinx(audio, "fr-FR", [('bonjour',1)], False)
+		stt = recognizer.recognize_sphinx(audio, "fr-FR", [('bonjour',1),('test',1),("lancer",1),('programme',1),('un',1),('deux',1)], False)
 		after = datetime.now()
 		
 		duree = after - before
@@ -87,12 +87,19 @@ def listen():
 
 def do(text):
 	
-	if (text=="bonjour"):
+	cmd = text.lower()
+	
+	if (cmd=="bonjour"):
 		return "Bonjour"
 	else:
-		return "Veuillez reformulez!"	
+		if ("lancer" in cmd):
+			if ("programme un" in cmd):
+				return "programme un lancé"
+			if ("programme deux" in cmd):
+				return "programme deux lancé"	 
+		else:	
+			return "Veuillez reformulez!"	
 
 commande = listen()
-print(commande)	
 reponse = do(commande)
 speak(reponse)

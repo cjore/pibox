@@ -23,8 +23,12 @@ long_line_behaviour=1
 long_line_column=72
 
 [files]
-current_page=0
-FILE_NAME_0=1438;Python;0;EUTF-8;1;1;0;%2Fhome%2Fpi%2Fpibox%2Fpivocalmanager%2Fassistant%2Fjarvis.py;0;4
+current_page=3
+FILE_NAME_0=2487;Python;0;EUTF-8;1;1;0;%2Fhome%2Fpi%2Fpibox%2Fpivocalmanager%2Fassistant%2Fjarvis.py;0;4
+FILE_NAME_1=208;Python;0;EUTF-8;1;1;0;%2Fhome%2Fpi%2Fpibox%2Fpivocalmanager%2Fassistant%2FMain.py;0;4
+FILE_NAME_2=640;Python;0;EUTF-8;1;1;0;%2Fhome%2Fpi%2Fpibox%2Fpivocalmanager%2Fassistant%2FStt.py;0;4
+FILE_NAME_3=199;Python;0;EUTF-8;1;1;0;%2Fhome%2Fpi%2Fpibox%2Fpivocalmanager%2Fassistant%2FTraitementCommandeVocale.py;0;4
+FILE_NAME_4=0;Python;0;EUTF-8;1;1;0;%2Fhome%2Fpi%2Fpibox%2Fpivocalmanager%2Fassistant%2FTts.py;0;4
 
 [VTE]
 last_dir=/home/pi/pibox/pivocalmanager/assistant
@@ -33,3 +37,6 @@ last_dir=/home/pi/pibox/pivocalmanager/assistant
 EX_00_LB=_Exécuter
 EX_00_CM=python3 "%f"
 EX_00_WD=
+EX_01_LB=Main
+EX_01_CM=python3 Main.py
+EX_01_WD=
