@@ -23,12 +23,14 @@ long_line_behaviour=1
 long_line_column=72
 
 [files]
-current_page=3
-FILE_NAME_0=2487;Python;0;EUTF-8;1;1;0;%2Fhome%2Fpi%2Fpibox%2Fpivocalmanager%2Fassistant%2Fjarvis.py;0;4
-FILE_NAME_1=208;Python;0;EUTF-8;1;1;0;%2Fhome%2Fpi%2Fpibox%2Fpivocalmanager%2Fassistant%2FMain.py;0;4
-FILE_NAME_2=640;Python;0;EUTF-8;1;1;0;%2Fhome%2Fpi%2Fpibox%2Fpivocalmanager%2Fassistant%2FStt.py;0;4
+current_page=1
+FILE_NAME_0=475;Python;0;EUTF-8;1;1;0;%2Fhome%2Fpi%2Fpibox%2Fpivocalmanager%2Fassistant%2Fjarvis.py;0;4
+FILE_NAME_1=811;Python;0;EUTF-8;1;1;0;%2Fhome%2Fpi%2Fpibox%2Fpivocalmanager%2Fassistant%2FMain.py;0;4
+FILE_NAME_2=872;Python;0;EUTF-8;1;1;0;%2Fhome%2Fpi%2Fpibox%2Fpivocalmanager%2Fassistant%2FStt.py;0;4
 FILE_NAME_3=199;Python;0;EUTF-8;1;1;0;%2Fhome%2Fpi%2Fpibox%2Fpivocalmanager%2Fassistant%2FTraitementCommandeVocale.py;0;4
 FILE_NAME_4=0;Python;0;EUTF-8;1;1;0;%2Fhome%2Fpi%2Fpibox%2Fpivocalmanager%2Fassistant%2FTts.py;0;4
+FILE_NAME_5=16;None;0;EUTF-8;1;1;0;%2Fhome%2Fpi%2Fpibox%2Fpivocalmanager%2Fassistant%2FKeywords.csv;0;4
+FILE_NAME_6=131;Python;0;EUTF-8;1;1;0;%2Fhome%2Fpi%2Fpibox%2Fpivocalmanager%2Fassistant%2FCsvUtils.py;0;4
 
 [VTE]
 last_dir=/home/pi/pibox/pivocalmanager/assistant
