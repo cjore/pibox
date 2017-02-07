@@ -3,29 +3,32 @@
 
 import speech_recognition
 from datetime import datetime
+import logging
 
 class Stt():
 	
 	""" Initilisation de la reconnaissence vocal """
 	def __init__(self):
 		self.recognizer = speech_recognition.Recognizer()
+		self.logger = logging.getLogger(self.__class__.__name__)
 	
 		
 	""" Initialise et échnatillonne le flux audio pour traitement """
 	def initialiserMicro(self):
-		print("Initialisation micro")
+		self.logger.info('Initialisation du micro"')
+		
 		with speech_recognition.Microphone(device_index = 2, sample_rate = 48000, chunk_size = 1024) as source:
 			self.recognizer.adjust_for_ambient_noise(source)
 			self.audio = self.recognizer.listen(source)
-		print("Son détecté par la micro")	
+		self.logger.info("Son détecté par la micro")	
 	
 	""" Ecoute d'une commande vocale avec Sphinx """
 	def listenOffLine(self,keyword_entries=None):
-		print("Listen Off Line...")
+		self.logger.info("Listen Off Line...")
 		self.initialiserMicro()
 						
 		before = datetime.now()
-		print("Commande en cours de traitement : {0}".format(before))
+		self.logger.info("Commande en cours de traitement : {0}".format(before))
 			
 		#speak("Commande en cours de traitement")
 		stt=""	
@@ -38,23 +41,23 @@ class Stt():
 			after = datetime.now()
 			
 			duree = after - before
-			print("Duree du recognizer sphinx : {0}".format(duree))
-			print(stt)
+			self.logger.info("Duree du recognizer sphinx : {0}".format(duree))
+			self.logger.info("Texte interprété par Sphinx : {0}".format(stt))
 				
 		except speech_recognition.UnknownValueError:
-			print("Could not understand audio")
+			self.logger.info("Could not understand audio")
 		except speech_recognition.RequestError as e:
-			print("Recog Error; {0}".format(e))
+			self.logger.info("Recog Error; {0}".format(e))
 						
 		return stt
 	
 	""" Ecoute d'une commande vocale avec Google """
 	def listenInLine(self,keyword_entries=None):
-		print("Listen In Line...")
+		self.logger.info("Listen In Line...")
 		self.initialiserMicro()
 						
 		before = datetime.now()
-		print("Commande en cours de traitement : {0}".format(before))
+		self.logger.info("Commande en cours de traitement : {0}".format(before))
 			
 		#speak("Commande en cours de traitement")
 		stt=""	
@@ -67,13 +70,13 @@ class Stt():
 			after = datetime.now()
 			
 			duree = after - before
-			print("Duree du recognizer google : {0}".format(duree))
-			print(stt)
+			self.logger.info("Duree du recognizer google : {0}".format(duree))
+			self.logger.info("Texte interprété par Sphinx : {0}".format(stt))
 				
 		except speech_recognition.UnknownValueError:
-			print("Could not understand audio")
+			self.logger.info("Could not understand audio")
 		except speech_recognition.RequestError as e:
-			print("Recog Error; {0}".format(e))
+			self.logger.info("Recog Error; {0}".format(e))
 						
 		return stt
 	
