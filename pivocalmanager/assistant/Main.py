@@ -32,7 +32,7 @@ class Main():
 		#Chargement des mots reconnu par le programme
 		keywords = CsvUtils.transformerCsvEnListeKeyword('Keywords.csv');
 		self.logger.info('Chargement du dictionnaire réduit : {0}'.format(keywords))
-		
+				
 		#Transformation de la parole en texte
 		commande = self.stt.listenOffLine(keywords)
 		
@@ -42,6 +42,8 @@ class Main():
 		
 		#Génération de la synthèse vocale 
 		self.tts.speak(reponse)
+			
+			
 		
 if __name__ == "__main__":
 	Main()

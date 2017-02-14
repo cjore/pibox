@@ -1,22 +1,27 @@
-2017-02-07 15:20:43,771 - Main - INFO - Initialisation du logger
-2017-02-07 15:20:43,942 - Main - INFO - [('bonjour', 1), ('deux', 1), ('lancer', 1), ('programme', 1), ('un', 1), ('mode', 1), ('rafale', 1)]
-2017-02-07 15:24:32,950 - Main - INFO - Initialisation du programme
-2017-02-07 15:24:33,128 - Main - INFO - Chargement du dictionnaire réduit : [('bonjour', 1), ('deux', 1), ('lancer', 1), ('programme', 1), ('un', 1), ('mode', 1), ('rafale', 1)]
-2017-02-07 15:27:50,792 - Main - INFO - Initialisation du programme
-2017-02-07 15:27:50,962 - Main - INFO - Chargement du dictionnaire réduit : [('bonjour', 1), ('deux', 1), ('lancer', 1), ('programme', 1), ('un', 1), ('mode', 1), ('rafale', 1)]
-2017-02-07 15:27:50,963 - Stt - INFO - Initialisation du micro"
-2017-02-07 15:32:44,213 - Main - INFO - Initialisation du programme
-2017-02-07 15:32:44,387 - Main - INFO - Chargement du dictionnaire réduit : [('bonjour', 1), ('deux', 1), ('lancer', 1), ('programme', 1), ('un', 1), ('mode', 1), ('rafale', 1)]
-2017-02-07 15:32:44,388 - Stt - INFO - Listen Off Line...
-2017-02-07 15:32:44,388 - Stt - INFO - Initialisation du micro"
-2017-02-07 15:37:53,997 - Main - INFO - Initialisation du programme
-2017-02-07 15:38:22,265 - Main - INFO - Initialisation du programme
-2017-02-07 15:38:22,436 - Main - INFO - Chargement du dictionnaire réduit : [('bonjour', 1), ('deux', 1), ('lancer', 1), ('programme', 1), ('un', 1), ('mode', 1), ('rafale', 1)]
-2017-02-07 15:38:22,437 - Stt - INFO - Listen Off Line...
-2017-02-07 15:38:22,437 - Stt - INFO - Initialisation du micro"
-2017-02-07 15:38:26,016 - Stt - INFO - Son détecté par la micro
-2017-02-07 15:38:26,029 - Stt - INFO - Commande en cours de traitement : 2017-02-07 15:38:26.023294
-2017-02-07 15:38:31,138 - Stt - INFO - Duree du recognizer sphinx : 0:00:05.107284
-2017-02-07 15:38:31,139 - Stt - INFO - Texte interprété par Sphinx : un  deux  un  un  un  bonjour  un  un  un  un  un 
-2017-02-07 15:38:31,155 - TraitementCommandeVocale - INFO - Traitement commande vocale en cours ...
-2017-02-07 15:38:31,156 - Main - INFO - Commande interprété par le programme : Bonjour
+2017-02-13 13:35:09,104 - Main - INFO - Initialisation du programme
+2017-02-13 13:35:09,315 - Main - INFO - Chargement du dictionnaire réduit : [('bonjour', 1), ('deux', 1), ('lancer', 1), ('programme', 1), ('un', 1), ('mode', 1), ('rafale', 1)]
+2017-02-13 13:35:09,316 - Stt - INFO - Listen Off Line...
+2017-02-13 13:35:09,316 - Stt - INFO - Initialisation du micro"
+2017-02-13 13:35:14,254 - Stt - INFO - Son détecté par la micro
+2017-02-13 13:35:14,260 - Stt - INFO - Commande en cours de traitement : 2017-02-13 13:35:14.255816
+2017-02-13 13:35:19,453 - Stt - INFO - Duree du recognizer sphinx : 0:00:05.191373
+2017-02-13 13:35:19,454 - Stt - INFO - Texte interprété par Sphinx : un  deux  un  un  un  un  un  un  un  un  un 
+2017-02-13 13:35:19,454 - TraitementCommandeVocale - INFO - Traitement commande vocale en cours ...
+2017-02-13 13:35:19,454 - Main - INFO - Commande interprété par le programme : Veuillez reformulez!
+2017-02-13 13:35:21,242 - Stt - INFO - Listen Off Line...
+2017-02-13 13:35:21,242 - Stt - INFO - Initialisation du micro"
+2017-02-13 13:35:23,470 - Stt - INFO - Son détecté par la micro
+2017-02-13 13:35:23,471 - Stt - INFO - Commande en cours de traitement : 2017-02-13 13:35:23.471699
+2017-02-13 13:35:27,146 - Stt - INFO - Could not understand audio
+2017-02-13 13:35:27,333 - TraitementCommandeVocale - INFO - Traitement commande vocale en cours ...
+2017-02-13 13:35:27,334 - Main - INFO - Commande interprété par le programme : Veuillez reformulez!
+2017-02-13 13:35:28,945 - Stt - INFO - Listen Off Line...
+2017-02-13 13:35:28,945 - Stt - INFO - Initialisation du micro"
+2017-02-13 13:35:34,273 - Stt - INFO - Son détecté par la micro
+2017-02-13 13:35:34,274 - Stt - INFO - Commande en cours de traitement : 2017-02-13 13:35:34.274683
+2017-02-13 13:35:38,492 - Stt - INFO - Duree du recognizer sphinx : 0:00:04.216535
+2017-02-13 13:35:38,493 - Stt - INFO - Texte interprété par Sphinx : un  un  deux  un  deux  un  un  un  un  un  un  un  un  un  deux 
+2017-02-13 13:35:38,493 - TraitementCommandeVocale - INFO - Traitement commande vocale en cours ...
+2017-02-13 13:35:38,494 - Main - INFO - Commande interprété par le programme : Veuillez reformulez!
+2017-02-13 13:35:40,104 - Stt - INFO - Listen Off Line...
+2017-02-13 13:35:40,105 - Stt - INFO - Initialisation du micro"
