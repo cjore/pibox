@@ -15,8 +15,8 @@ while True:
 				r.adjust_for_ambient_noise(source)
 				audio = r.listen(source)
 				print("pinger")
-				#pinger = r.recognize_google(audio)
-				pinger = r.recognize_sphinx(audio, "fr-FR", [('bonjour',1)], False)
+				pinger = r.recognize_google(audio)
+				#pinger = r.recognize_sphinx(audio, "fr-FR", [('bonjour',1)], False)
 				
 			try:
 				print(pinger)

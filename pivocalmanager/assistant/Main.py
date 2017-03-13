@@ -26,7 +26,7 @@ class Main():
 		self.stt = Stt()
 		self.tts = Tts()
 		self.traitementCommandeVocale = TraitementCommandeVocale()
-		self.lancerAssistant()
+		self.lancerAssistantEnBoucle()
 				
 	def lancerAssistant(self):
 		#Chargement des mots reconnu par le programme
@@ -42,6 +42,23 @@ class Main():
 		
 		#Génération de la synthèse vocale 
 		self.tts.speak(reponse)
+		
+	def lancerAssistantEnBoucle(self):
+		#Chargement des mots reconnu par le programme
+		keywords = CsvUtils.transformerCsvEnListeKeyword('Keywords.csv');
+		self.logger.info('Chargement du dictionnaire réduit : {0}'.format(keywords))
+		
+		#Transformation de la parole en texte
+		while True:
+			commande = self.stt.listenOffLineInBackground('start', 'stop', keywords)
+			
+			#Interprétation textuelle de la commande
+			if(commande is not None):	
+				reponse = self.traitementCommandeVocale.do(commande)
+				self.logger.info('Commande interprété par le programme : {0}'.format(reponse))
+				
+				#Génération de la synthèse vocale 
+				self.tts.speak(reponse)	
 			
 			
 		
